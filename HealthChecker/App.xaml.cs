@@ -13,8 +13,8 @@
             const int newwidth = 1000;
 
             var wins = new Window(new AppShell());
-            wins.Height = wins.MinimumHeight = wins.MaximumHeight = newheight;
-            wins.Width = wins.MinimumWidth = wins.MaximumWidth = newwidth;
+            wins.Height = wins.MinimumHeight = newheight;
+            wins.Width = wins.MinimumWidth = newwidth;
             return wins;
         }
     }

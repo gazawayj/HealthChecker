@@ -27,6 +27,12 @@ namespace HealthChecker.PageModels
         private List<Project> _projects = [];
 
         [ObservableProperty]
+        private List<HealthLog> _healthLogs = [];
+
+        [ObservableProperty]
+        private List<HealthLog> _pastNotifications = [];
+
+        [ObservableProperty]
         bool _isBusy;
 
         [ObservableProperty]

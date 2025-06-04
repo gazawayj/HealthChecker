@@ -1,46 +1,97 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pageModels="clr-namespace:HealthChecker.PageModels"             
-             xmlns:models="clr-namespace:HealthChecker.Models"
-             xmlns:controls="clr-namespace:HealthChecker.Pages.Controls"
-             xmlns:pullToRefresh="clr-namespace:Syncfusion.Maui.Toolkit.PullToRefresh;assembly=Syncfusion.Maui.Toolkit"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="HealthChecker.Pages.MainPage"
-             x:DataType="pageModels:MainPageModel"
-             Title="{Binding Today}">
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+             xmlns:pageModels="clr-namespace:HealthChecker.PageModels"  
+             xmlns:models="clr-namespace:HealthChecker.Models"  
+             xmlns:controls="clr-namespace:HealthChecker.Pages.Controls"  
+             xmlns:pullToRefresh="clr-namespace:Syncfusion.Maui.Toolkit.PullToRefresh;assembly=Syncfusion.Maui.Toolkit"  
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"  
+             x:Class="HealthChecker.Pages.MainPage"  
+             x:DataType="pageModels:MainPageModel"  
+             Title="{Binding Today}">  
 
-    <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior
-                EventName="NavigatedTo"
-                Command="{Binding NavigatedToCommand}" />
-        <toolkit:EventToCommandBehavior
-                EventName="NavigatedFrom"
-                Command="{Binding NavigatedFromCommand}" />
-        <toolkit:EventToCommandBehavior
-                EventName="Appearing"                
-                Command="{Binding AppearingCommand}" />
-    </ContentPage.Behaviors>
+    <ContentPage.Behaviors>  
+        <toolkit:EventToCommandBehavior  
+                EventName="NavigatedTo"  
+                Command="{Binding NavigatedToCommand}" />  
+        <toolkit:EventToCommandBehavior  
+                EventName="NavigatedFrom"  
+                Command="{Binding NavigatedFromCommand}" />  
+        <toolkit:EventToCommandBehavior  
+                EventName="Appearing"                  
+                Command="{Binding AppearingCommand}" />  
+    </ContentPage.Behaviors>  
 
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
+    <ContentPage.Resources>  
+        <ResourceDictionary>  
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />  
+        </ResourceDictionary>  
+    </ContentPage.Resources>  
 
-    <Grid ColumnDefinitions="Auto, *"
-        ColumnSpacing="5"
-        RowDefinitions="*, Auto"
-        RowSpacing="0">
-        <Image Source="https://img.freepik.com/free-vector/vector-grid-marking-user-hud-interface_1284-52212.jpg"/>
-        <VerticalStackLayout
-            Grid.Column="1"
-            Grid.Row="0"
-            Padding="10">
-            <Label Style="{StaticResource LargeTitle}" Text="HealthChecker" HorizontalTextAlignment="Center" />
-        </VerticalStackLayout>
+    <Grid ColumnDefinitions="Auto, *"  
+        ColumnSpacing="5"  
+        RowDefinitions="*, Auto"  
+        RowSpacing="0">  
+        <Image Source="https://img.freepik.com/free-vector/vector-grid-marking-user-hud-interface_1284-52212.jpg"/>  
+        <VerticalStackLayout  
+            Grid.Column="1"  
+            Grid.RowSpan="3"  
+            Padding="10">  
+            <Label Style="{StaticResource LargeTitle}" FontSize="Subtitle" HorizontalTextAlignment="End" Text="Your HealthChecker Stats for Today:" Padding="4"/>  
+            <Border HeightRequest="175">  
+                <CarouselView ItemsSource="{Binding HealthLogs}" 
+                              IndicatorView="indicatorView"
+                              HeightRequest="100"  
+                              Margin="4"  
+                              BackgroundColor="Transparent">  
+                    <CarouselView.ItemTemplate>  
+                        <DataTemplate x:DataType="models:HealthLog">
+                            <StackLayout>
+                                <Border Style="{StaticResource CardStyle}" />
+                                <StackLayout>
+                                    <Label Text="{Binding Timestamp}"
+                                           FontSize="12"
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Start" />
+                                </StackLayout>
+                            </StackLayout>
+                        </DataTemplate>  
+                    </CarouselView.ItemTemplate>  
+                </CarouselView>
+                <IndicatorView x:Name="indicatorView"
+                   IndicatorColor="LightGray"
+                   SelectedIndicatorColor="DarkGray"
+                   HorizontalOptions="Center" />
+            </Border>
+            <Label Style="{StaticResource LargeTitle}" FontSize="Subtitle" HorizontalTextAlignment="End" Text="Your Past Health Notifications:" Padding="4" VerticalTextAlignment="End" Grid.Row="3"/>
+            <Border HeightRequest="175">
+                <CarouselView ItemsSource="{Binding HealthLogs}" 
+                  IndicatorView="indicatorViewPast"
+                  HeightRequest="100"  
+                  Margin="4"  
+                  BackgroundColor="Transparent">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate x:DataType="models:HealthLog">
+                            <StackLayout>
+                                <Border Style="{StaticResource CardStyle}" />
+                                <StackLayout>
+                                    <Label Text="{Binding Timestamp}"
+                               FontSize="12"
+                               HorizontalOptions="Start"
+                               VerticalOptions="End" />
+                                </StackLayout>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+                <IndicatorView x:Name="indicatorViewPast"
+       IndicatorColor="LightGray"
+       SelectedIndicatorColor="DarkGray"
+       HorizontalOptions="Center" />
+            </Border>
+        </VerticalStackLayout>  
         
 
-        <Button Text="Create Health Log" FontSize="12" BackgroundColor="LightCoral" Grid.Row="1" Margin="8" />
-    </Grid>
+        <Button Text="Create Health Log" FontSize="12" BackgroundColor="LightCoral" Grid.Row="1" Margin="8" />  
+    </Grid>  
 </ContentPage>
