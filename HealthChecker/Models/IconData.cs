@@ -1,5 +1,3 @@
-using System;
-
 namespace HealthChecker.Models
 {
     public class IconData

@@ -1,6 +1,6 @@
-using System.Text.Json;
 using HealthChecker.Models;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace HealthChecker.Data
 {

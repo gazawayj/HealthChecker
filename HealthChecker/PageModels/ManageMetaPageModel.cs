@@ -1,9 +1,7 @@
-using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using HealthChecker.Data;
 using HealthChecker.Models;
-using HealthChecker.Services;
+using System.Collections.ObjectModel;
 
 namespace HealthChecker.PageModels
 {

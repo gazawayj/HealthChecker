@@ -1,5 +1,3 @@
-using HealthChecker.Models;
-
 namespace HealthChecker.Pages
 {
     public partial class ProjectDetailPage : ContentPage

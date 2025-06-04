@@ -1,5 +1,5 @@
-using System.Diagnostics.CodeAnalysis;
 using HealthChecker.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace HealthChecker.Utilities
 {

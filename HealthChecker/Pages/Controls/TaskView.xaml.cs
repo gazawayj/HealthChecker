@@ -1,5 +1,5 @@
-using System.Windows.Input;
 using HealthChecker.Models;
+using System.Windows.Input;
 
 namespace HealthChecker.Pages.Controls
 {

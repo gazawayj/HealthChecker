@@ -1,5 +1,3 @@
-using HealthChecker.Services;
-
 namespace HealthChecker.Utilities
 {
     /// <summary>
