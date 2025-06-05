@@ -37,9 +37,6 @@ namespace HealthChecker.ViewModel
                 // Handle exceptions, e.g., log them or show a message to the user
                 Console.WriteLine($"Error fetching health logs: {ex.Message}");
             }
-            finally
-            {                 
-            }
         }
 
     }

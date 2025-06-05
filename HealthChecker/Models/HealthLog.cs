@@ -11,7 +11,7 @@ namespace HealthChecker.Models
         public string Details { get; set; }
         public HealthLog() 
         { 
-            Message = string.Empty;
+            Message = "234";
             Status = string.Empty;
             Details = string.Empty;
         }
