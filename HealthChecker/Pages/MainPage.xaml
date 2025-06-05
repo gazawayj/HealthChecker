@@ -26,38 +26,21 @@
         <ResourceDictionary>  
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />  
         </ResourceDictionary>  
-    </ContentPage.Resources>-->  
+    </ContentPage.Resources>-->
 
-    <Grid ColumnDefinitions="Auto, *" RowDefinitions="*, 60" HorizontalOptions="Start">  
+    <Grid ColumnDefinitions="Auto, *" RowDefinitions="*, 60" HorizontalOptions="Start" Padding="20" BackgroundColor="IndianRed">  
         <Image Grid.Column="0" Grid.Row="0" Source="https://img.freepik.com/free-vector/vector-grid-marking-user-hud-interface_1284-52212.jpg"/>  
-        <Button Grid.Column="0" Grid.Row="1" Text="Create Health Log" FontSize="14" BackgroundColor="LightCoral" Margin="5" />  
-        <VerticalStackLayout Grid.Column="1" Grid.Row="0">  
-            <Label Style="{StaticResource LargeTitle}" Grid.Column="1" Grid.Row="0" FontSize="Subtitle" Text="Your HealthChecker Stats for Today:"/>
-            <CarouselView ItemsSource="{Binding HealthLogs}"  HeightRequest="150" HorizontalOptions="Start" BackgroundColor="Transparent" FlowDirection="LeftToRight">  
+        <Button Grid.Column="0" Grid.Row="1" TextColor="Black" Text="Create Health Log" FontSize="14" BackgroundColor="Aqua" Margin="5" />  
+        <Grid ColumnDefinitions="*" RowDefinitions="*, *" Grid.Column="1">
+            <VerticalStackLayout Padding="25" Margin="4" BackgroundColor="Green" Grid.Row="0">
+                <Label Style="{StaticResource LargeTitle}" Grid.Column="1" Grid.Row="0" FontSize="Subtitle" TextColor="Black" Text="Your HealthChecker Stats for Today:" Padding="4" Margin="4"/>
+            <CarouselView ItemsSource="{Binding HealthLogs}" HeightRequest="150" HorizontalOptions="Start" BackgroundColor="Pink">  
                 <CarouselView.ItemsLayout>  
                     <LinearItemsLayout Orientation="Horizontal" ItemSpacing="4" />  
                 </CarouselView.ItemsLayout>  
                 <CarouselView.ItemTemplate>  
                     <DataTemplate x:DataType="models:HealthLog">
-                        <StackLayout>
-                            <Border Stroke="White" StrokeThickness="2">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="8" />
-                                </Border.StrokeShape>
-                                <Label Text="{Binding Timestamp}" FontSize="12"/>
-                            </Border>
-                        </StackLayout>
-                    </DataTemplate>  
-                </CarouselView.ItemTemplate>  
-            </CarouselView>  
-            <Label Style="{StaticResource LargeTitle}" FontSize="Subtitle" Text="Your Past Health Notifications:" />
-            <CarouselView ItemsSource="{Binding HealthLogs}"  HeightRequest="150" VerticalOptions="End" HorizontalOptions="Start" BackgroundColor="Transparent" FlowDirection="LeftToRight">
-                <CarouselView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="4" />
-                </CarouselView.ItemsLayout>
-                <CarouselView.ItemTemplate>
-                    <DataTemplate x:DataType="models:HealthLog">
-                        <StackLayout VerticalOptions="End">
+                        <StackLayout Padding="14" Margin="14">
                             <Border Stroke="White" StrokeThickness="2">
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="8" />
@@ -65,9 +48,25 @@
                                 <Label Text="{Binding Details}" FontSize="12"/>
                             </Border>
                         </StackLayout>
+                    </DataTemplate>  
+                </CarouselView.ItemTemplate>  
+            </CarouselView>
+            </VerticalStackLayout>
+            <VerticalStackLayout Padding="25" Margin="4" BackgroundColor="Yellow" Grid.Row="1">
+                <Label Style="{StaticResource LargeTitle}" FontSize="Subtitle" TextColor="Black" Text="Your Past Health Notifications:" Padding="4" Margin="4" />
+            <CarouselView ItemsSource="{Binding HealthLogs}" HeightRequest="150" HorizontalOptions="Start" BackgroundColor="Moccasin" >
+                <CarouselView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="4" />
+                </CarouselView.ItemsLayout>
+                <CarouselView.ItemTemplate>
+                    <DataTemplate x:DataType="models:HealthLog">
+                        <StackLayout Padding="4" Margin="4">
+                                <Label Text="{Binding Details}" FontSize="12"/>
+                            </StackLayout>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>
-        </VerticalStackLayout>  
+                </VerticalStackLayout>
+        </Grid>  
     </Grid>  
 </ContentPage>
