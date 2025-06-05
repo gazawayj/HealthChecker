@@ -21,8 +21,6 @@ namespace HealthChecker
             builder.Services.AddSingleton<MainPageModel>();
             builder.Services.AddSingleton<HealthLogService>();
             builder.Services.AddSingleton<HealthLogViewModel>();
-            
-
 
             return builder.Build();
         }

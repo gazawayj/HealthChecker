@@ -19,7 +19,7 @@ namespace HealthChecker.Services
             using var stream = await FileSystem.OpenAppPackageFileAsync("SeedData.json");
             using var reader = new StreamReader(stream);
             var content = await reader.ReadToEndAsync();
-            healthLogs = JsonSerializer.Deserialize(content, HealthLogContext.Default.ICollectionHealthLog);
+            healthLogs = JsonSerializer.Deserialize(content, HealthLogContext.Default.ICollectionHealthLog) ?? new List<HealthLog>();
             return healthLogs;
         }
     }
