@@ -10,7 +10,7 @@ namespace HealthChecker.ViewModel
         [ObservableProperty]
         string title;
 
-        public ObservableCollection<HealthLog> HealthLogs { get; } = new();
+        public ObservableCollection<HealthLog> healthLogs { get; } = new();
         HealthLogService healthLogService;
 
         public HealthLogViewModel(HealthLogService healthLogService)
@@ -24,12 +24,11 @@ namespace HealthChecker.ViewModel
         {
             try
             {
-                HealthLogs.Clear();
                 var logs = await healthLogService.GetHealthLogs();
 
                 foreach (var log in logs)
                 {
-                    HealthLogs.Add(log);
+                    healthLogs.Add(log);
                 }
             }
             catch (Exception ex)
