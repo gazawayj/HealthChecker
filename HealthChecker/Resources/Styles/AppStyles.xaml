@@ -258,10 +258,11 @@
     </Style>
 
     <Style TargetType="Border" x:Key="CardStyle">
-        <Setter Property="StrokeShape" Value="RoundRectangle 20"/>
-        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource LightSecondaryBackground},Dark={StaticResource DarkSecondaryBackground}}"/>
-        <Setter Property="StrokeThickness" Value="0"/>
+        <Setter Property="StrokeShape" Value="RoundRectangle 40"/>
+        <Setter Property="Background" Value="DarkGray"/>
+        <Setter Property="StrokeThickness" Value="2"/>
         <Setter Property="Padding" Value="{OnIdiom 15, Desktop=20}"/>
+        <Setter Property="Margin" Value="15"/>
     </Style>
 
     <sf:LabelStyle x:Key="lightThemeLabelStyle" TextColor="{StaticResource DarkOnLightBackground}" FontSize="{OnIdiom 18, Desktop=24}"/> 

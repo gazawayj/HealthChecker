@@ -13,6 +13,7 @@ namespace HealthChecker.ViewModel
         string title;
 
         public ObservableCollection<HealthLog> healthLogs { get; } = new();
+        public ObservableCollection<HealthLog> todaysCards { get; } = new();
         HealthLogService healthLogService;
 
         public HealthLogViewModel(HealthLogService healthLogService)
