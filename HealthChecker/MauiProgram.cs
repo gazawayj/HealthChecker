@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using HealthChecker.ViewModel;
 using Microsoft.Extensions.Logging;
-using Syncfusion.Maui.Toolkit.Hosting;
 
 
 namespace HealthChecker
@@ -18,7 +17,6 @@ namespace HealthChecker
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-            builder.Services.AddSingleton<MainPageModel>();
             builder.Services.AddSingleton<HealthLogService>();
             builder.Services.AddSingleton<HealthLogViewModel>();
 

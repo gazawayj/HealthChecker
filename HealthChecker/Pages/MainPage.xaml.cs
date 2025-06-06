@@ -1,8 +1,10 @@
-﻿namespace HealthChecker.Pages
+﻿using HealthChecker.ViewModel;
+
+namespace HealthChecker.Pages
 {
     public partial class MainPage : ContentPage
     {
-        public MainPage(MainPageModel model)
+        public MainPage(HealthLogViewModel model)
         {
             InitializeComponent();
             BindingContext = model;

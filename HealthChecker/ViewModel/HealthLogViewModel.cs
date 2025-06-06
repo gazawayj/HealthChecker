@@ -2,6 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using HealthChecker.Models;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Text;
 
 namespace HealthChecker.ViewModel
 {
@@ -26,6 +28,9 @@ namespace HealthChecker.ViewModel
             {
                 var logs = await healthLogService.GetHealthLogs();
 
+                if (healthLogs.Count != 0)
+                    healthLogs.Clear();
+
                 foreach (var log in logs)
                 {
                     healthLogs.Add(log);
@@ -33,9 +38,19 @@ namespace HealthChecker.ViewModel
             }
             catch (Exception ex)
             {
-                // Handle exceptions, e.g., log them or show a message to the user
-                Console.WriteLine($"Error fetching health logs: {ex.Message}");
+                Debug.WriteLine($"Unable to get logs: {ex.Message}");
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+                return;
             }
+
+            //// Convert healthLogs to a string representation for display
+            //var logsStringBuilder = new StringBuilder();
+            //foreach (var log in healthLogs)
+            //{
+            //    logsStringBuilder.AppendLine($"Message: {log.Message}, Status: {log.Status}, Details: {log.Details}");
+            //}
+            //await Shell.Current.DisplayAlert("It Worked!", logsStringBuilder.ToString(), "OK");
+            
         }
 
     }

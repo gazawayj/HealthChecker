@@ -1,24 +1,22 @@
-{
-    "HealthLogs": [
-        {
-            "Message": "Balance",
-            "Status": "Improve work-life balance.",
-            "Details": "\uea28"        
-        },
-        {
-          "Message": "Balance",
-          "Status": "Improve work-life balance.",
-          "Details": "\uea28"
-        },
-        {
-          "Message": "Balance",
-          "Status": "Improve work-life balance.",
-          "Details": "\uea28"
-        },
-        {
-          "Message": "Balance",
-          "Status": "Improve work-life balance.",
-          "Details": "\uea28"
-        }
-    ]
-}
+[
+    {
+      "Message": "Good Health!",
+      "Status": "Cardiac - 100%",
+      "Details": "06/01/25"
+    },
+  {
+    "Message": "Balanced Health.",
+    "Status": "Cardiac - 92",
+    "Details": "06/02/25"
+  },
+  {
+    "Message": "Low Health Swing",
+    "Status": "Cardiac - 78%",
+    "Details": "06/03/25"
+  },
+  {
+    "Message": "High Health Swing",
+    "Status": "Cardiac - 92%",
+    "Details": "06/04/25"
+  }
+]

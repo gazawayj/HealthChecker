@@ -7,53 +7,67 @@
              xmlns:pullToRefresh="clr-namespace:Syncfusion.Maui.Toolkit.PullToRefresh;assembly=Syncfusion.Maui.Toolkit"  
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"  
              x:Class="HealthChecker.Pages.MainPage"  
-             x:DataType="viewModels:HealthLogViewModel">  
+             x:DataType="viewModels:HealthLogViewModel">
 
     <!--Create a 2x2 grid with the left column fitting the image (626 pixels) and the bottom row being 60 pixels high.-->
-    <Grid ColumnDefinitions="650, *" Padding="12" RowSpacing="2" ColumnSpacing="2" RowDefinitions="450, 125, *" HorizontalOptions="Start" BackgroundColor="#1a1a1a">
+
+    <Grid ColumnDefinitions="400, *" ColumnSpacing="2" RowDefinitions="400, 120, Auto" HorizontalOptions="Start" BackgroundColor="#1a1a1a">
+
         <!--Load image which sizing is based off into top left quadrant-->
-        <Image Grid.Column="0" Grid.Row="0" Source="raw.png" />
+
+        <Image Grid.Column="0" Grid.Row="0" HeightRequest="400" Source="filled.png" />
+
         <!--Create Health Log Button for bottom left quadrant-->
-        <Button Grid.Column="1" HeightRequest="60" WidthRequest="555" Grid.Row="2" TextColor="Black" Text="Create Health Log" 
+
+        <Button Grid.Column="1" HeightRequest="40" WidthRequest="500" Grid.Row="2" TextColor="Black" Text="Create Health Log" 
                 FontSize="16" FontAttributes="Bold" BackgroundColor="Olive" Margin="7"
                 Command="{Binding GetHealthLogsCommand}" />
+
         <!--Create a Vertical Stack for a background of the legend-->
-        <VerticalStackLayout Grid.Column="0" Grid.Row="1" BackgroundColor="#202020" Padding="10" Margin="15"/>
+
+        <Label Grid.Column="0" Grid.Row="1" BackgroundColor="DeepPink" Text="--- Legend for Health Graph ---" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+
         <!--Create a 1x2 grid in the parent's top-right quadrant. Grid halved equally-->
-        <Label Grid.Column="0" Grid.Row="2" Text="To Be Continued" />
-        <Grid ColumnDefinitions="*" RowDefinitions="*, *" Grid.Column="1">
+
+        <Label Grid.Column="0" Grid.Row="2" Text="--- Buttons to switch graph view ---" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+        <Grid ColumnDefinitions="*" RowDefinitions="*, *, *" Grid.Column="1" Grid.Row="0">
+
             <!--Create a vertical stack so the label and carousel are shown former over latter.-->
-            <VerticalStackLayout Padding="25" Margin="4" BackgroundColor="#1a1a1a" Grid.Row="0">
-                <Label Style="{StaticResource LargeTitle}" Grid.Column="1" Grid.Row="0" FontSize="Subtitle" FontAttributes="Bold,Italic" HorizontalTextAlignment="End"  TextColor="White" Text="Your HealthChecker Stats for Today:" Padding="4" Margin="4"/>
-                <CarouselView ItemsSource="{Binding HealthLogs}" WidthRequest="530" HeightRequest="170" HorizontalOptions="Start" BackgroundColor="#202020">  
-                    <CarouselView.ItemsLayout>  
-                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="4" />  
-                    </CarouselView.ItemsLayout>  
-                    <CarouselView.ItemTemplate>  
-                        <DataTemplate x:DataType="models:HealthLog">
-                            <StackLayout Padding="14" Margin="14">
-                                <Label Text="{Binding Details}" FontSize="12"/>
-                            </StackLayout>
-                        </DataTemplate>  
-                    </CarouselView.ItemTemplate>  
-                </CarouselView>
-                </VerticalStackLayout>
-            <VerticalStackLayout Padding="25" Margin="4" BackgroundColor="#1a1a1a" Grid.Row="1" >
-                
-                <Label Style="{StaticResource LargeTitle}" FontSize="Subtitle" TextColor="White" FontAttributes="Bold,Italic" HorizontalTextAlignment="End" Text="Your Past Health Notifications:" Padding="4" Margin="4" />
-                <CarouselView ItemsSource="{Binding HealthLogs}" WidthRequest="530" HeightRequest="170" HorizontalOptions="Start" BackgroundColor="#202020" >
-                    <CarouselView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="4" />
-                    </CarouselView.ItemsLayout>
+            <VerticalStackLayout Grid.Row="0">
+                <Label Style="{StaticResource LargeTitle}" Grid.Row="0" FontSize="Subtitle" FontAttributes="Bold,Italic" HorizontalTextAlignment="End"  TextColor="White" Text="Your Past Health Notifications:"/>
+                <CarouselView BackgroundColor="Yellow"
+                    Grid.Row="0" HeightRequest="120"
+                    ItemsSource="{Binding healthLogs}">
                     <CarouselView.ItemTemplate>
                         <DataTemplate x:DataType="models:HealthLog">
-                            <StackLayout Padding="4" Margin="4">
-                                <Label Text="{Binding Details}" FontSize="12"/>
-                            </StackLayout>
+                            <VerticalStackLayout >
+                                <Label TextColor="Black" FontSize="16" Text="{Binding Status}" />
+                                <Label TextColor="Black" FontSize="16" Text="{Binding Message}" />
+                                <Label TextColor="Black" FontSize="16" Text="{Binding Details}" />
+                            </VerticalStackLayout>
                         </DataTemplate>
                     </CarouselView.ItemTemplate>
                 </CarouselView>
             </VerticalStackLayout>
-        </Grid>  
-    </Grid>  
+
+
+            <!--Create a vertical stack so the label and carousel are shown former over latter.-->
+            <VerticalStackLayout Grid.Row="2">
+                <Label Style="{StaticResource LargeTitle}" Grid.Row="2" FontSize="Subtitle" FontAttributes="Bold,Italic" HorizontalTextAlignment="End"  TextColor="White" Text="Your Current Health Status:" />
+                <CarouselView BackgroundColor="ForestGreen" 
+            Grid.Row="1" HeightRequest="120"
+            ItemsSource="{Binding healthLogs}">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate x:DataType="models:HealthLog">
+                            <VerticalStackLayout >
+                                <Label TextColor="Black" FontSize="16" Text="{Binding Status}" />
+                                <Label TextColor="Black" FontSize="16" Text="{Binding Message}" />
+                                <Label TextColor="Black" FontSize="16" Text="{Binding Details}" />
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
 </ContentPage>

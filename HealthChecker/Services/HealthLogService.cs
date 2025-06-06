@@ -4,14 +4,16 @@ using System.Text.Json;
 namespace HealthChecker.Services
 {
     public class HealthLogService
-    {        
+    {
+        //give the option to go online later
+        HttpClient httpClient;
         public HealthLogService()
         {
-            healthLogs = GetHealthLogs().Result;
+            this.httpClient = new HttpClient();
         }
 
-        public ICollection<HealthLog> healthLogs;
-        public async Task<ICollection<HealthLog>> GetHealthLogs()
+        List<HealthLog> healthLogs;
+        public async Task<List<HealthLog>> GetHealthLogs()
         {
             if (healthLogs?.Count > 0)
                 return healthLogs;
@@ -19,7 +21,8 @@ namespace HealthChecker.Services
             using var stream = await FileSystem.OpenAppPackageFileAsync("SeedData.json");
             using var reader = new StreamReader(stream);
             var content = await reader.ReadToEndAsync();
-            healthLogs = JsonSerializer.Deserialize(content, HealthLogContext.Default.ICollectionHealthLog) ?? new List<HealthLog>();
+            healthLogs = JsonSerializer.Deserialize(content, HealthLogContext.Default.ListHealthLog);
+
             return healthLogs;
         }
     }

@@ -16,7 +16,7 @@ namespace HealthChecker.Models
             Details = string.Empty;
         }
     }
-    [JsonSerializable(typeof(ICollection<HealthLog>))]
+    [JsonSerializable(typeof(List<HealthLog>))]
     internal sealed partial class HealthLogContext : JsonSerializerContext
     {
 
