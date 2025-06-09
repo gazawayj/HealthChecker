@@ -6,13 +6,12 @@ namespace HealthChecker.Services
     public class HealthLogService
     {
         //give the option to go online later
-        HttpClient httpClient;
+        private List<HealthLog> healthLogs = new List<HealthLog>(); // Initialize to avoid nullability issues
+
         public HealthLogService()
         {
-            this.httpClient = new HttpClient();
         }
 
-        List<HealthLog> healthLogs;
         public async Task<List<HealthLog>> GetHealthLogs()
         {
             if (healthLogs?.Count > 0)

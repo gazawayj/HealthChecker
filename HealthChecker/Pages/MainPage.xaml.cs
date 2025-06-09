@@ -8,6 +8,7 @@ namespace HealthChecker.Pages
         {
             InitializeComponent();
             BindingContext = model;
+            model.GetHealthLogsCommand.Execute(null);
         }
     }
 }

@@ -9,100 +9,85 @@
              x:Class="HealthChecker.Pages.MainPage"  
              x:DataType="viewModels:HealthLogViewModel">
 
-    <!--Create a 2x3 grid with the top left column fixing the image to 450 pixels and the bottom row being 60 pixels high. BackgroundColor="#1a1a1a" -->
-    <Grid FlexLayout.AlignSelf="Stretch"  ColumnDefinitions="450, Auto" ColumnSpacing="10" RowDefinitions="450, *, 60" BackgroundColor="#1a1a1a" Margin="4" Padding="4">
-
-        <!--Load image which sizing is based off into top left quadrant-->
-        <Image Grid.Column="0" Grid.Row="0" Source="filled.png" />
-
-        <!--Create Health Log Button for bottom left quadrant-->
-        <Button Grid.Column="1" Grid.Row="2" TextColor="Black" Text="Create Health Log"  
-                FontSize="16" FontAttributes="Bold" BackgroundColor="Olive"   
-                Command="{Binding GetHealthLogsCommand}" />
-        <!--Create a Vertical Stack for a background of the legend-->
-        <Label Grid.Column="0" Grid.Row="1" BackgroundColor="Gray" Text="--- Legend for Health Graph ---" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-        <!--Area for graph buttons-->
-        <Label Grid.Column="0" Grid.Row="2" Text="--- Buttons to switch graph view ---" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
-
-        <!--Create a 1x3 grid for the health logs and current health status.-->
-        <Grid WidthRequest="420" ColumnDefinitions="*" RowDefinitions="180, *, Auto" Grid.Column="1" Grid.Row="0" >
-
-            <!--Create a vertical stack so the label and carousel are shown former over latter.-->
-            <Grid ColumnDefinitions="*" RowDefinitions="*,*" Grid.Row="0">
-                <Label Style="{StaticResource LargeTitle}" Grid.Row="0" FontSize="Subtitle" FontAttributes="Bold,Italic" TextColor="White" Text="Your Past Health:"/>
-                <Grid RowDefinitions="*, *" Grid.Row="1" >
-                <!--Create a carouselview and set the items source to the health logs collection in the view model. The carousel view will display each health log with details, message, and status.-->
-                <CarouselView IndicatorView="{x:Reference indicatorTop}" FlexLayout.AlignSelf="Auto"                   
-                              HeightRequest="160" Grid.Row="0" HorizontalOptions="Fill"
-                              ItemsSource="{Binding healthLogs}" PeekAreaInsets="10">
-
-                    <!--Tell the carousel view that the data type will be of type Models.HealthLog-->
-                    <CarouselView.ItemTemplate>
-                        <DataTemplate x:DataType="models:HealthLog">
-                            <!--Create a border around each health log item to give it a card-like appearance.-->
-                            <Border Style="{StaticResource CardStyle}">
-                                <Grid Grid.Row="0" Grid.RowSpan="3">
-                                    <!--Display the details, message, and status of each health log in a vertical stack layout.-->
-                                    <VerticalStackLayout >
+    <!--outer container grid_0, using this because I've noticed weird behavior with stacks 1x1 -->
+    <Grid>
+        <!--inner main grid_1   2x2   -->
+        <Grid RowDefinitions="Auto, *" ColumnDefinitions="Auto, *" Grid.Row="0">
+            <!--grid_2 for top left quadrant, holding graph, legend  1x2  -->
+            <Grid RowDefinitions="Auto, *" Grid.Row="0" Grid.Column="0">
+                <!--Metric Background image goes into row 0 of grid.-->
+                <Image Grid.Column="0" WidthRequest="450" Aspect="AspectFill" Grid.Row="0" Source="gridfilled.png" />
+                <!--Metric Legend image goes into row 1 of grid.-->
+                <Image Grid.Column="0" WidthRequest="400" Aspect="AspectFill" Grid.Row="1" Source="legendfilled.png" />
+            </Grid>
+            <!--grid_3 for top right quadrant 2x2  -->
+            <Grid RowDefinitions="*, *" Grid.Row="0" Grid.Column="1">
+                <!--grid_4 for holding the past health label, carousel, and indicator   1x3    -->
+                <Grid RowDefinitions="Auto, Auto, Auto" Grid.Row="0">
+                    <Label Style="{StaticResource LargeTitle}" Grid.Row="0" FontSize="Subtitle" FontAttributes="Bold,Italic" TextColor="White" Text="Your Past Health:"/>
+                    <!--CREATE CAROUSEL VIEW WITH LABEL AND INDICATOR-->
+                    <CarouselView IndicatorView="{x:Reference indicatorTop}"                   
+                        HeightRequest="200" Grid.Row="1" 
+                        ItemsSource="{Binding pastHealthLogs}">
+                        <!--Tell the carousel view that the data type will be of type Models.HealthLog-->
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate x:DataType="models:HealthLog">
+                                <!--Create a border around each health log item to give it a card-like appearance.-->
+                                <Border Style="{StaticResource CardStyle}">
+                                    <Grid RowDefinitions="*,*,*">
+                                        <!--Display the details, message, and status of each health log in a vertical stack layout.-->
                                         <Label Grid.Row="0" Style="{StaticResource Headline}" TextColor="LightGray" FontAttributes="Bold" Text="{Binding Details}" />
                                         <Label Grid.Row="1" Style="{StaticResource Body1Strong}" TextColor="Black" Text="{Binding Message}" />
                                         <Label Grid.Row="2" Style="{StaticResource Body2Strong}" TextColor="Black" Text="{Binding Status}" />
-                                    </VerticalStackLayout >
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </CarouselView.ItemTemplate>
-                </CarouselView>
-                <IndicatorView x:Name="indicatorTop"  
-                    Margin="20" Grid.Row="1" FlexLayout.AlignSelf="End"
-                    IndicatorColor="LightGray"  
-                    SelectedIndicatorColor="White"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                    <!--define the indicator, set colors etc.-->
+                    <IndicatorView x:Name="indicatorTop"  
+                        Margin="20" Grid.Row="2" FlexLayout.AlignSelf="End"
+                        IndicatorColor="LightGray"  
+                        SelectedIndicatorColor="White"/>
+                </Grid>
+                <!--grid_5 for holding the current health information label, carousel, and indicator -->
+                <Grid RowDefinitions="Auto, Auto, Auto" Grid.Row="1">
+                    <Label Style="{StaticResource LargeTitle}" Grid.Row="0" FontSize="Subtitle" FontAttributes="Bold,Italic" TextColor="White" Text="Today's Health:"/>
+                    <!--CREATE CAROUSEL VIEW WITH LABEL AND INDICATOR-->
+                    <CarouselView IndicatorView="{x:Reference indicatorBot}"                    
+                        HeightRequest="200" Grid.Row="1" 
+                        ItemsSource="{Binding todaysHealthLogs}">
+                        <!--Tell the carousel view that the data type will be of type Models.HealthLog-->
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate x:DataType="models:HealthLog">
+                                <!--Create a border around each health log item to give it a card-like appearance.-->
+                                <Border Style="{StaticResource CardStyle}">
+                                    <Grid RowDefinitions="Auto,*,*">
+                                        <!--Display the details, message, and status of each health log in a vertical stack layout.-->
+                                        <Label Grid.Row="0" Style="{StaticResource Headline}" TextColor="LightGray" FontAttributes="Bold" Text="{Binding Details}" />
+                                        <Label Grid.Row="1" Style="{StaticResource Body1Strong}" TextColor="Black" Text="{Binding Message}" />
+                                        <Label Grid.Row="2" Style="{StaticResource Body2Strong}" TextColor="Black" Text="{Binding Status}" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                    <!--define the indicator, set colors etc.-->
+                    <IndicatorView x:Name="indicatorBot"  
+                        Margin="20" Grid.Row="2" FlexLayout.AlignSelf="End"
+                        IndicatorColor="LightGray"  
+                        SelectedIndicatorColor="White"/>
                 </Grid>
             </Grid>
+            <!--Graph Button-->
+            <Button Grid.Column="0" Grid.Row="1" TextColor="Black" Text="Placeholder"  
+                    FontSize="16" FontAttributes="Bold" BackgroundColor="Olive"
+                    HeightRequest="40"/>
+            <!--Create Health Log Button-->
+            <Button Grid.Column="1" Grid.Row="1" TextColor="Black" Text="Create Health Log"  
+                    FontSize="16" FontAttributes="Bold" BackgroundColor="Olive"   
+                    Command="{Binding GetHealthLogsCommand}"
+                    HeightRequest="40"/>
         </Grid>
-
-        <!--Add a background image to the second row of the grid to give it a heartbeat effect.-->
-        <Image Source="heartbeat.png" Grid.Column="1" Grid.Row="1" Aspect="AspectFit" Opacity="20"/>
-
-        <!--Create a carousel view to show the user's health cards from that day.-->
-        <!--<VerticalStackLayout Grid.Row="2" HorizontalOptions="Start" Padding="4" >  
-                <Label Style="{StaticResource LargeTitle}" Grid.Row="2" FontSize="Subtitle" FontAttributes="Bold,Italic" TextColor="White" Text="Your Current Health Status:" />
-                <CarouselView IndicatorView="{x:Reference indicatorBot}" HorizontalOptions="Fill"
-                    HeightRequest="150" 
-                    ItemsSource="{Binding healthLogs}">
-                    -->
-        <!--Set the layout to horizontal so that the items are displayed in a horizontal line.-->
-        <!--
-                    <CarouselView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Horizontal" />
-                    </CarouselView.ItemsLayout>
-                    -->
-        <!--Tell the carousel view that the data type will be of type Models.HealthLog-->
-        <!--
-                    <CarouselView.ItemTemplate>
-                        <DataTemplate x:DataType="models:HealthLog">
-                            -->
-        <!--Create a border around each health log item to give it a card-like appearance.-->
-        <!--
-                            <Border Style="{StaticResource CardStyle}">
-                                <Grid Grid.Row="0" Grid.RowSpan="3">
-                                    -->
-        <!--Display the details, message, and status of each health log in a vertical stack layout.-->
-        <!--
-                                    <VerticalStackLayout >
-                                        <Label Grid.Row="0" TextColor="Black" FontSize="16" Text="{Binding Details}" />
-                                        <Label Grid.Row="1" TextColor="Black" FontSize="16" Text="{Binding Message}" />
-                                        <Label Grid.Row="2" TextColor="Black" FontSize="16" Text="{Binding Status}" />
-                                    </VerticalStackLayout >
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </CarouselView.ItemTemplate>
-                </CarouselView>
-                <IndicatorView x:Name="indicatorBot"  
-                    Margin="20"    
-                    IndicatorColor="LightGray"  
-                    SelectedIndicatorColor="White"/>
-            </VerticalStackLayout>-->
     </Grid>
 </ContentPage>

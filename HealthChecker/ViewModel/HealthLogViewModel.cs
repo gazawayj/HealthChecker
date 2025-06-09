@@ -12,8 +12,8 @@ namespace HealthChecker.ViewModel
         [ObservableProperty]
         string title;
 
-        public ObservableCollection<HealthLog> healthLogs { get; } = new();
-        public ObservableCollection<HealthLog> todaysCards { get; } = new();
+        public ObservableCollection<HealthLog> pastHealthLogs { get; } = new();
+        public ObservableCollection<HealthLog> todaysHealthLogs { get; } = new();
         HealthLogService healthLogService;
 
         public HealthLogViewModel(HealthLogService healthLogService)
@@ -29,12 +29,12 @@ namespace HealthChecker.ViewModel
             {
                 var logs = await healthLogService.GetHealthLogs();
 
-                if (healthLogs.Count != 0)
-                    healthLogs.Clear();
+                if (pastHealthLogs.Count != 0)
+                    pastHealthLogs.Clear();
 
                 foreach (var log in logs)
                 {
-                    healthLogs.Add(log);
+                    pastHealthLogs.Add(log);
                 }
             }
             catch (Exception ex)
@@ -43,16 +43,29 @@ namespace HealthChecker.ViewModel
                 await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
                 return;
             }
-
-            //// Convert healthLogs to a string representation for display
-            //var logsStringBuilder = new StringBuilder();
-            //foreach (var log in healthLogs)
-            //{
-            //    logsStringBuilder.AppendLine($"Message: {log.Message}, Status: {log.Status}, Details: {log.Details}");
-            //}
-            //await Shell.Current.DisplayAlert("It Worked!", logsStringBuilder.ToString(), "OK");
-            
         }
 
+        [RelayCommand]
+        async Task GetTodaysLogsAsync()
+        {
+            try
+            {
+                var logs = await healthLogService.GetHealthLogs();
+
+                if (pastHealthLogs.Count != 0)
+                    pastHealthLogs.Clear();
+
+                foreach (var log in logs)
+                {
+                    pastHealthLogs.Add(log);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unable to get logs: {ex.Message}");
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+                return;
+            }
+        }
     }
 }
