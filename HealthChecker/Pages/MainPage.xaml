@@ -10,20 +10,29 @@
              x:DataType="viewModels:HealthLogViewModel">
 
     <!--outer container grid_0, using this because I've noticed weird behavior with stacks 1x1 -->
-    <Grid>
+    <Grid BackgroundColor="#1a1a1a">
         <!--inner main grid_1   2x2   -->
         <Grid RowDefinitions="Auto, *" ColumnDefinitions="Auto, *" Grid.Row="0">
             <!--grid_2 for top left quadrant, holding graph, legend  1x2  -->
             <Grid RowDefinitions="Auto, *" Grid.Row="0" Grid.Column="0">
                 <!--Metric Background image goes into row 0 of grid.-->
-                <Image Grid.Column="0" WidthRequest="450" Aspect="AspectFill" Grid.Row="0" Source="gridfilled.png" />
+                <Image Grid.Column="0" WidthRequest="400" Aspect="AspectFill" Grid.Row="0" Source="gridfilled.png" />
                 <!--Metric Legend image goes into row 1 of grid.-->
                 <Image Grid.Column="0" WidthRequest="400" Aspect="AspectFill" Grid.Row="1" Source="legendfilled.png" />
             </Grid>
+            <!--Graph Button-->
+            <Button Grid.Column="0" Grid.Row="1" TextColor="Black" Text="Placeholder"  
+                    FontSize="16" FontAttributes="Bold" BackgroundColor="Olive"
+                    HeightRequest="40" Margin="7"/>
+            <!--Create Health Log Button-->
+            <Button Grid.Column="1" Grid.Row="1" TextColor="Black" Text="Create Health Log"  
+                    FontSize="16" FontAttributes="Bold" BackgroundColor="Olive"  
+                    Command="{Binding }"
+                    HeightRequest="40" Margin="7"/>
             <!--grid_3 for top right quadrant 2x2  -->
             <Grid RowDefinitions="*, *" Grid.Row="0" Grid.Column="1">
                 <!--grid_4 for holding the past health label, carousel, and indicator   1x3    -->
-                <Grid RowDefinitions="Auto, Auto, Auto" Grid.Row="0">
+                <Grid RowDefinitions="*, Auto, *" Grid.Row="0">
                     <Label Style="{StaticResource LargeTitle}" Grid.Row="0" FontSize="Subtitle" FontAttributes="Bold,Italic" TextColor="White" Text="Your Past Health:"/>
                     <!--CREATE CAROUSEL VIEW WITH LABEL AND INDICATOR-->
                     <CarouselView IndicatorView="{x:Reference indicatorTop}"                   
@@ -36,9 +45,9 @@
                                 <Border Style="{StaticResource CardStyle}">
                                     <Grid RowDefinitions="*,*,*">
                                         <!--Display the details, message, and status of each health log in a vertical stack layout.-->
-                                        <Label Grid.Row="0" Style="{StaticResource Headline}" TextColor="LightGray" FontAttributes="Bold" Text="{Binding Details}" />
-                                        <Label Grid.Row="1" Style="{StaticResource Body1Strong}" TextColor="Black" Text="{Binding Message}" />
-                                        <Label Grid.Row="2" Style="{StaticResource Body2Strong}" TextColor="Black" Text="{Binding Status}" />
+                                        <Label Grid.Row="0" Style="{StaticResource Headline}" TextColor="White" FontAttributes="Bold" Text="{Binding Details}" />
+                                        <Label Grid.Row="1" Style="{StaticResource Body1Strong}" TextColor="White"  Text="{Binding Message}" />
+                                        <Label Grid.Row="2" Style="{StaticResource Body2Strong}" TextColor="White" Text="{Binding Status}" />
                                     </Grid>
                                 </Border>
                             </DataTemplate>
@@ -51,7 +60,7 @@
                         SelectedIndicatorColor="White"/>
                 </Grid>
                 <!--grid_5 for holding the current health information label, carousel, and indicator -->
-                <Grid RowDefinitions="Auto, Auto, Auto" Grid.Row="1">
+                <Grid RowDefinitions="*, Auto, *" Grid.Row="1">
                     <Label Style="{StaticResource LargeTitle}" Grid.Row="0" FontSize="Subtitle" FontAttributes="Bold,Italic" TextColor="White" Text="Today's Health:"/>
                     <!--CREATE CAROUSEL VIEW WITH LABEL AND INDICATOR-->
                     <CarouselView IndicatorView="{x:Reference indicatorBot}"                    
@@ -79,15 +88,6 @@
                         SelectedIndicatorColor="White"/>
                 </Grid>
             </Grid>
-            <!--Graph Button-->
-            <Button Grid.Column="0" Grid.Row="1" TextColor="Black" Text="Placeholder"  
-                    FontSize="16" FontAttributes="Bold" BackgroundColor="Olive"
-                    HeightRequest="40"/>
-            <!--Create Health Log Button-->
-            <Button Grid.Column="1" Grid.Row="1" TextColor="Black" Text="Create Health Log"  
-                    FontSize="16" FontAttributes="Bold" BackgroundColor="Olive"   
-                    Command="{Binding GetHealthLogsCommand}"
-                    HeightRequest="40"/>
         </Grid>
     </Grid>
 </ContentPage>
