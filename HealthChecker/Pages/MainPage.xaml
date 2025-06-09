@@ -21,19 +21,25 @@
                 <Image Grid.Column="0" WidthRequest="400" Aspect="AspectFill" Grid.Row="1" Source="legendfilled.png" />
             </Grid>
             <!--Graph Button-->
-            <Button Grid.Column="0" Grid.Row="1" TextColor="Black" Text="Placeholder"  
+            <Grid Grid.Column="0" Grid.Row="1" ColumnDefinitions="Auto, *, Auto">
+                <Button Grid.Column="0" TextColor="Black" Text="Sleep"  
                     FontSize="16" FontAttributes="Bold" BackgroundColor="Olive"
-                    HeightRequest="40" Margin="7"/>
+                    WidthRequest="120" HeightRequest="40" Margin="7"/>
+                <Label Grid.Column="1" Text="Overall Health" HorizontalTextAlignment="Center" VerticalOptions="Center"
+                       TextColor="Olive"/>
+                <Button Grid.Column="2" TextColor="Black" Text="Carb Burn"  
+                    FontSize="16" FontAttributes="Bold" BackgroundColor="Olive"
+                    WidthRequest="120" HeightRequest="40" Margin="7"/>
+            </Grid>
             <!--Create Health Log Button-->
             <Button Grid.Column="1" Grid.Row="1" TextColor="Black" Text="Create Health Log"  
-                    FontSize="16" FontAttributes="Bold" BackgroundColor="Olive"  
-                    Command="{Binding }"
+                    FontSize="16" FontAttributes="Bold" BackgroundColor="Olive" 
                     HeightRequest="40" Margin="7"/>
             <!--grid_3 for top right quadrant 2x2  -->
             <Grid RowDefinitions="*, *" Grid.Row="0" Grid.Column="1">
                 <!--grid_4 for holding the past health label, carousel, and indicator   1x3    -->
                 <Grid RowDefinitions="*, Auto, *" Grid.Row="0">
-                    <Label Style="{StaticResource LargeTitle}" Grid.Row="0" FontSize="Subtitle" FontAttributes="Bold,Italic" TextColor="White" Text="Your Past Health:"/>
+                    <Label Style="{StaticResource LargeTitle}" Grid.Row="0" FontSize="Subtitle" FontAttributes="Bold" TextColor="White" Text="Your Past Health:"/>
                     <!--CREATE CAROUSEL VIEW WITH LABEL AND INDICATOR-->
                     <CarouselView IndicatorView="{x:Reference indicatorTop}"                   
                         HeightRequest="200" Grid.Row="1" 
@@ -43,7 +49,7 @@
                             <DataTemplate x:DataType="models:HealthLog">
                                 <!--Create a border around each health log item to give it a card-like appearance.-->
                                 <Border Style="{StaticResource CardStyle}">
-                                    <Grid RowDefinitions="*,*,*">
+                                    <Grid RowDefinitions="Auto,*,*">
                                         <!--Display the details, message, and status of each health log in a vertical stack layout.-->
                                         <Label Grid.Row="0" Style="{StaticResource Headline}" TextColor="White" FontAttributes="Bold" Text="{Binding Details}" />
                                         <Label Grid.Row="1" Style="{StaticResource Body1Strong}" TextColor="White"  Text="{Binding Message}" />
@@ -54,18 +60,19 @@
                         </CarouselView.ItemTemplate>
                     </CarouselView>
                     <!--define the indicator, set colors etc.-->
-                    <IndicatorView x:Name="indicatorTop"  
+                    <IndicatorView x:Name="indicatorTop"
+                                   IndicatorSize="8"
                         Margin="20" Grid.Row="2" FlexLayout.AlignSelf="End"
-                        IndicatorColor="LightGray"  
-                        SelectedIndicatorColor="White"/>
+                        IndicatorColor="White"  
+                        SelectedIndicatorColor="Olive"/>
                 </Grid>
                 <!--grid_5 for holding the current health information label, carousel, and indicator -->
                 <Grid RowDefinitions="*, Auto, *" Grid.Row="1">
-                    <Label Style="{StaticResource LargeTitle}" Grid.Row="0" FontSize="Subtitle" FontAttributes="Bold,Italic" TextColor="White" Text="Today's Health:"/>
+                    <Label Style="{StaticResource LargeTitle}" Grid.Row="0" FontSize="Subtitle" FontAttributes="Bold" TextColor="White" Text="Today's Health:"/>
                     <!--CREATE CAROUSEL VIEW WITH LABEL AND INDICATOR-->
                     <CarouselView IndicatorView="{x:Reference indicatorBot}"                    
-                        HeightRequest="200" Grid.Row="1" 
-                        ItemsSource="{Binding todaysHealthLogs}">
+                        HeightRequest="200" Grid.Row="1">
+                        <!--@TODO: ADD ItemsSource="{Binding todaysHealthLogs}" once service is created.-->
                         <!--Tell the carousel view that the data type will be of type Models.HealthLog-->
                         <CarouselView.ItemTemplate>
                             <DataTemplate x:DataType="models:HealthLog">
@@ -74,8 +81,8 @@
                                     <Grid RowDefinitions="Auto,*,*">
                                         <!--Display the details, message, and status of each health log in a vertical stack layout.-->
                                         <Label Grid.Row="0" Style="{StaticResource Headline}" TextColor="LightGray" FontAttributes="Bold" Text="{Binding Details}" />
-                                        <Label Grid.Row="1" Style="{StaticResource Body1Strong}" TextColor="Black" Text="{Binding Message}" />
-                                        <Label Grid.Row="2" Style="{StaticResource Body2Strong}" TextColor="Black" Text="{Binding Status}" />
+                                        <Label Grid.Row="1" Style="{StaticResource LargeTitle}" TextColor="Black" Text="{Binding Message}" />
+                                        <Label Grid.Row="2" Style="{StaticResource LargeTitle}" TextColor="Black" Text="{Binding Status}" />
                                     </Grid>
                                 </Border>
                             </DataTemplate>

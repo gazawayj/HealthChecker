@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using HealthChecker.Models;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using CommunityToolkit.Maui.Views;
 using System.Text;
 
 namespace HealthChecker.ViewModel
@@ -43,6 +44,13 @@ namespace HealthChecker.ViewModel
                 await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
                 return;
             }
+        }
+
+        [RelayCommand]
+        public void CreateLogPopup()
+        {
+            var popup = new LogPopup();
+            popup.BindingContext = this;
         }
 
         [RelayCommand]

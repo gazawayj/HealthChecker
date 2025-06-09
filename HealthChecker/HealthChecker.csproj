@@ -76,5 +76,17 @@
 	<ItemGroup>
 	  <Folder Include="Pages\Controls\" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Pages\LogPopup.xaml.cs">
+	    <DependentUpon>LogPopup.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\LogPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
 	
 </Project>
