@@ -30,7 +30,7 @@ This project serves as a forward-looking exercise to understand how AI-driven an
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/YourUsername/MauiHealthLog.git](https://github.com/YourUsername/MauiHealthLog.git)
+    git clone [https://github.com/gazawayj/MauiHealthLog.git]
     cd MauiHealthLog
     ```
 2.  **Restore NuGet packages:**
