@@ -3,8 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using HealthChecker.Models;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using CommunityToolkit.Maui.Views;
-using System.Text;
 
 namespace HealthChecker.ViewModel
 {
