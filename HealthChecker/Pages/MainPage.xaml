@@ -7,7 +7,9 @@
              xmlns:pullToRefresh="clr-namespace:Syncfusion.Maui.Toolkit.PullToRefresh;assembly=Syncfusion.Maui.Toolkit"  
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"  
              x:Class="HealthChecker.Pages.MainPage"  
-             x:DataType="viewModels:HealthLogViewModel">
+             x:DataType="viewModels:HealthLogViewModel"
+             x:DataType="view">
+            
 
     <!--outer container grid_0, using this because I've noticed weird behavior with stacks 1x1 -->
     <Grid BackgroundColor="#1a1a1a">
@@ -26,7 +28,7 @@
                     FontSize="16" FontAttributes="Bold" BackgroundColor="Olive"
                     WidthRequest="120" HeightRequest="40" Margin="7"/>
                 <Label Grid.Column="1" Text="Overall Health" HorizontalTextAlignment="Center" VerticalOptions="Center"
-                       TextColor="Olive"/>
+                    TextColor="Olive"/>
                 <Button Grid.Column="2" TextColor="Black" Text="Carb Burn"  
                     FontSize="16" FontAttributes="Bold" BackgroundColor="Olive"
                     WidthRequest="120" HeightRequest="40" Margin="7"/>
@@ -39,10 +41,10 @@
             <Grid RowDefinitions="*, *" Grid.Row="0" Grid.Column="1">
                 <!--grid_4 for holding the past health label, carousel, and indicator   1x3    -->
                 <Grid RowDefinitions="*, Auto, *" Grid.Row="0">
-                    <Label Style="{StaticResource LargeTitle}" Grid.Row="0" FontSize="Subtitle" FontAttributes="Bold" TextColor="White" Text="Your Past Health:"/>
+                    <Label Style="{StaticResource LargeTitle}" Grid.Row="0" FontSize="Subtitle" FontAttributes="Bold" TextColor="White" Text="Your Past Week's Health:"/>
                     <!--CREATE CAROUSEL VIEW WITH LABEL AND INDICATOR-->
                     <CarouselView IndicatorView="{x:Reference indicatorTop}"                   
-                        HeightRequest="200" Grid.Row="1" 
+                        HeightRequest="200" Grid.Row="1"
                         ItemsSource="{Binding pastHealthLogs}">
                         <!--Tell the carousel view that the data type will be of type Models.HealthLog-->
                         <CarouselView.ItemTemplate>
@@ -61,16 +63,16 @@
                     </CarouselView>
                     <!--define the indicator, set colors etc.-->
                     <IndicatorView x:Name="indicatorTop"
-                                   IndicatorSize="8"
+                                   IndicatorSize="7"
                         Margin="20" Grid.Row="2" FlexLayout.AlignSelf="End"
-                        IndicatorColor="White"  
+                        IndicatorColor="White" MaximumVisible="7"
                         SelectedIndicatorColor="Olive"/>
                 </Grid>
                 <!--grid_5 for holding the current health information label, carousel, and indicator -->
                 <Grid RowDefinitions="*, Auto, *" Grid.Row="1">
                     <Label Style="{StaticResource LargeTitle}" Grid.Row="0" FontSize="Subtitle" FontAttributes="Bold" TextColor="White" Text="Today's Health:"/>
                     <!--CREATE CAROUSEL VIEW WITH LABEL AND INDICATOR-->
-                    <CarouselView IndicatorView="{x:Reference indicatorBot}"                    
+                    <CarouselView IndicatorView="{x:Reference indicatorBot}"                 
                         HeightRequest="200" Grid.Row="1">
                         <!--@TODO: ADD ItemsSource="{Binding todaysHealthLogs}" once service is created.-->
                         <!--Tell the carousel view that the data type will be of type Models.HealthLog-->
@@ -89,10 +91,11 @@
                         </CarouselView.ItemTemplate>
                     </CarouselView>
                     <!--define the indicator, set colors etc.-->
-                    <IndicatorView x:Name="indicatorBot"  
+                    <IndicatorView x:Name="indicatorBot"
+                        IndicatorSize="7"
                         Margin="20" Grid.Row="2" FlexLayout.AlignSelf="End"
-                        IndicatorColor="LightGray"  
-                        SelectedIndicatorColor="White"/>
+                        IndicatorColor="White" MaximumVisible="7"  
+                        SelectedIndicatorColor="Olive"/>
                 </Grid>
             </Grid>
         </Grid>
